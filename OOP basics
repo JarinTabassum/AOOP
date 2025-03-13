@@ -1,0 +1,119 @@
+Suppose your client want from you to get a cricket academy management system. By using the system your client will be able to manage the activities of the academy easily.
+Create a class named PlayerInfo inside of the player package. PlayerInfo class should havepName, pId, pBalance and pExperience instance varaiables. Your client wants to keep pBalance
+and pExperience private. There should be some methods to get and set(parameterized) the valuesof those private variables. PlayerInfo does also have a constructor with four parameters to initialize
+the instance variables. PlayerInfo also have few methods updateId and updateName()(parameterized). There should be also a non-parameterized play() method which will reduce the
+pBalance by 100 and increase the pExperience by 5 if the paly() get called and the player has sufficient balance.
+
+
+package player;
+
+public class PlayerInfo {
+    public String pName;
+    public int pId;
+    private double pBalance;
+    private int pExp;
+
+    public PlayerInfo(String pName,int pId,double pBalance,int pExp){
+        this.pName=pName;
+        this.pId=pId;
+        this.pBalance=pBalance;
+        this.pExp=pExp;
+    }
+
+    public double getpBalance(){
+        return pBalance;
+    }
+    void setpBalance(double pBalance){
+        this.pBalance=pBalance;
+    }
+
+    public int getpExp(){
+        return pExp;
+    }
+    void setpExp(int pExp){
+        this.pExp=pExp;
+    }
+
+    public void updateID(int pId){
+        this.pId=pId;
+    }
+
+    public void updateName(String pName){
+        this.pName=pName;
+    }
+
+    public void play(){
+        if(pBalance>=100){
+            pBalance-=100;
+            pExp+=5;
+        }
+        else{
+            System.out.println("Not sufficient balance available");
+        }
+    }
+}
+
+//if i created the main class inside the package then would have written (package player; )
+import player.PlayerInfo; //here we created a class outside the package
+
+public class Maibn_player {
+    public static void main(String[] args) {
+        // Creating a player object
+        PlayerInfo player1 = new PlayerInfo("John Doe", 101, 500, 10);
+
+        // Displaying initial values
+        System.out.println("Player Name: " + player1.pName);
+
+
+
+Create another class named PlayerInfoV2 that inherits/extends the PlayerInfo class.  PlayerInfoV2 also have the non-parameterized play() method which will reduce the pBalance by
+150 and increase the pExperience by 10 if the paly() get called and the player has sufficient balance using an array.
+
+  package player;
+
+public class PlayerInfoV2 extends PlayerInfo{
+    public PlayerInfoV2(String pName,int pId,double pBalance,int pExp){ //need to make it public
+        super(pName,pId,pBalance,pExp); //constructor using super
+    }
+
+    public void play(){
+        if(getpBalance()>=150){
+            setpBalance(getpBalance()-150);
+            setpExp(getpExp()+10);
+            System.out.println("The new balance and experience:"+getpBalance()+" "+getpExp());
+        }
+        else{
+            System.out.println("Dont have sufficient balance");
+        }
+    }
+}
+
+//main (outside of package)
+import player.PlayerInfoV2;
+import java.util.Scanner;
+public class main_player2 {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the number of players:");
+        int n=sc.nextInt();
+
+        PlayerInfoV2[] players=new PlayerInfoV2[n];
+
+        for(int i=0; i<n; i++){
+            System.out.println("Enter the player name:");
+            String name=sc.next();
+            System.out.println("ID:");
+            int id=sc.nextInt();
+            System.out.println("Balance:");
+            double balance=sc.nextDouble();
+            System.out.println("Experience:");
+            int exp=sc.nextInt();
+
+            players[i]=new PlayerInfoV2(name,id,balance,exp);
+        }
+
+        for(PlayerInfoV2 p: players ){
+            p.play();
+        }
+    }
+}
