@@ -115,5 +115,164 @@ public class main_player2 {
         for(PlayerInfoV2 p: players ){
             p.play();
         }
+
+//public static void findSecondHighestSalary(Employee[] employees) {
+        double maxSalary = Double.MIN_VALUE;
+        double secondMaxSalary = Double.MIN_VALUE;
+
+        Employee secondHighestEmployee = null;
+
+        for (Employee emp : employees) {
+            if (emp.salary > maxSalary) {
+                secondMaxSalary = maxSalary;
+                maxSalary = emp.salary;
+            } else if (emp.salary > secondMaxSalary && emp.salary < maxSalary) {
+                secondMaxSalary = emp.salary;
+                secondHighestEmployee = emp;
+            }
+        }
+
+        if (secondHighestEmployee != null) {
+            System.out.println("Second highest salary: " + secondHighestEmployee.salary + " (Employee: " + secondHighestEmployee.name + ")");
+        } else {
+            System.out.println("No second highest salary found.");
+        }
+    }
+//
+    }
+}
+
+
+
+Write your code step by step according to the following instructions.
+Create an abstract class Chef.java. It will contain the following elements:
+
+● Four variables: ○ name -> a string ○ age -> an integer ○ skill_level -> a string (“Good”/“Average”/“Poor”) ○ salary -> a float number indicating the salary in USD
+● Two constructor methods: ○ Default constructor with no parameters  ○ Another constructor with 4 parameters for initialization
+● Two concrete functions: ○ printChefInfo() -> This function will print the four variables in the format shown below.
+
+Name of the chef: John, Age: 41, Skill level: Average, Salary: 102.50 USD
+○ upgradeSkill() -> If this function is called, the skill_level of the chef will get one level higher than the current one.
+Current Skill Level Upgraded Skill Level
+Poor Average
+Average Good
+Good Good
+
+● One abstract function: ○ cookDish(): No definition required here
+
+Now, create a class called PizzaChef.java which is a subclass of Chef. It will- ● define a constructor with 4 parameters. Use the super() method inside the
+constructor for initialization through the parent class. ● override cookDish() method. Inside the method, print this:
+
+Chef XXXX is now cooking pizza!!!
+[Here XXXX will be replaced by the chef’s name]. Example: Chef Robert is now cooking pizza!!!
+
+Finally, create a class called TestChefs.java which will contain the main() method. In the main(),
+create an instance of PizzaChef. Call and test all the available methods on the instance.
+
+abstract class chef {
+    String name;
+    int age;
+    String skill_level;
+    float salary;
+
+    public chef(){
+
+    }
+
+    public chef(String name,int age,String skill_level,float salary){
+        this.name=name;
+        this.age=age;
+        this.skill_level=skill_level;
+        this.salary=salary;
+    }
+
+    public void printChefInfo(){
+        System.out.println("Name: "+name+" Age: "+age+" Skill level: "+skill_level+" Salary: "+salary);
+    }
+
+    public void upgradeSkill(){
+        if(skill_level=="Poor"){
+            skill_level="Average";
+        } else if(skill_level == "Average"){
+            skill_level="good";
+        } else {
+            skill_level="Good";
+        }
+    }
+
+    abstract void cookDish();
+}
+
+............................................................................................................
+
+class PizzaChef extends chef{
+    PizzaChef(String name,int age,String skill_level,float salary){
+        super(name, age, skill_level, salary);
+    }
+
+    @Override
+    void cookDish() {
+        System.out.println("Chef " + name + " is now cooking pizza!!!");
+    }
+}
+
+............................................................................................................
+public class TestChefs {
+    public static void main(String[] args) {
+        PizzaChef p1=new PizzaChef("Robert",35,"Good",50000);
+        p1.printChefInfo();
+        p1.upgradeSkill();
+        p1.printChefInfo();
+        p1.cookDish();
+    }
+}
+
+
+//import java.util.Scanner;
+
+public class main_member {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter name:");
+        String empName=sc.nextLine();
+        System.out.println(("Enter age:"));
+        int empAge=sc.nextInt();
+        System.out.println("Enter phone number:");
+        String emp_phone=sc.next();
+        System.out.println("Enter address:");
+        sc.nextLine();
+        String emp_address=sc.nextLine();
+        System.out.println("Enter salary:");
+        double emp_salary=sc.nextDouble();
+        System.out.println("Enter specialization:");
+        String emp_sp=sc.next();
+
+        Employee e=new Employee(empName,empAge,emp_phone,emp_address,emp_salary,emp_sp);
+
+        System.out.println("Enter name:");
+        sc.nextLine();
+        String manName=sc.nextLine();
+        System.out.println(("Enter age:"));
+        int manAge=sc.nextInt();
+        System.out.println("Enter phone number:");
+        String man_phone=sc.next();
+        System.out.println("Enter address:");
+        sc.nextLine();
+        String man_address=sc.nextLine();
+        System.out.println("Enter salary:");
+        double man_salary=sc.nextDouble();
+        System.out.println("Enter department:");
+        String man_dp=sc.next();
+
+        Manager m=new Manager(manName,manAge,man_phone,man_address,man_salary,man_dp);
+
+        Member[] members={e,m};
+        System.out.println("Displaying employee info:");
+        e.printInfo();
+        e.printInfo2();
+
+        System.out.println("Displaying manager info:");
+        m.printInfo();
+        m.printInfo2();
     }
 }
